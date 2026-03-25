@@ -1,0 +1,26 @@
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {section}{\numberline {2}Value Function Iteration: Solving for V and Policy}{1}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Infinite Horizon: decision variable, markov shock}{1}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Refinement}{2}{subsubsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.2}Finite Horizon: decision variable, markov shock}{3}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Finite Horizon: semi-exogenous state}{4}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Finite Horizon: experienceasset}{5}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}How interpolation is done}{6}{subsubsection.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.4}Finite Horizon: riskyasset}{7}{subsubsection.2.2.4}%
+\contentsline {subsubsection}{\numberline {2.2.5}Finite Horizon: standard \& riskyasset}{8}{subsubsection.2.2.5}%
+\contentsline {subsubsection}{\numberline {2.2.6}Finite Horizon: Epstein-Zin preferences}{9}{subsubsection.2.2.6}%
+\contentsline {section}{\numberline {3}Agent Distribution}{11}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Stationary Agent Distribution in Infinite Horizon}{11}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Stationary Agent Distribution as Eigenvector}{12}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Simulate Agent Distribution}{12}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Iterate Agent Distribution}{13}{subsubsection.3.1.3}%
+\contentsline {subsubsection}{\numberline {3.1.4}Tan Improvement to Iterating Agent Distribution}{14}{subsubsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.2}Agent Distribution in Finite Horizon}{15}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Simulating the Agent Distribution}{15}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Iterating the Agent Distribution}{16}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Tan Improvement Iterating the Agent Distribution}{16}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Tan Improvement with Semi-Exogenous shocks}{17}{subsubsection.3.2.4}%
+\contentsline {subsubsection}{\numberline {3.2.5}Iterating the Agent Distribution with 'TwoProbs' (Linear Interpolation)}{18}{subsubsection.3.2.5}%
+\contentsline {subsubsection}{\numberline {3.2.6}Iterating the Agent Distribution with 'uProbs'}{20}{subsubsection.3.2.6}%
+\contentsline {section}{\numberline {4}Stationary General Equilibrium}{21}{section.4}%
+\contentsline {section}{\numberline {5}Transition Path General Equilibrium}{21}{section.5}%

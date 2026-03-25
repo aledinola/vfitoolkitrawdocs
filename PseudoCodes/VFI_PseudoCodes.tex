@@ -106,6 +106,8 @@ This document is a work-in-progress. Please request pseudocode for any specific 
 
 Throughout I use the standard notation of VFI Toolkit: so $d$ is a decision variable, $a$ is endogenous state (and $a'$ the next-period endogenous state), $z$ is a markov exogenous state, $e$ is an i.i.d. exogenous state, $u$ is an i.i.d. shock that occurs between periods. $V$ is the value function. For finite horizon problems there are $N_j$ periods, indexed by $j$.
 
+Throughout, $D(\cdot)$ denotes the set of feasible choices conditional on the current states.
+
 In many psuedocodes $g(a,z)$ denotes a policy, with $g^d(a,z)$ being the policy for the decision variables and $g^{a'}(a,z)$ being the policy for the next-period endogenous state.
 
 \section{Value Function Iteration: Solving for V and Policy}
@@ -172,6 +174,6 @@ Whether the problem is finite or infinite-horizon value functions, and whether o
 
 \nocite{VFIToolkit}
 \bibliographystyle{plainnat}
-\bibliography{/home/kmarshallbanana/Dropbox/RDKbiblio.bib}
+\bibliography{VFI_PseudoCodes_refs}
 
 \end{document}

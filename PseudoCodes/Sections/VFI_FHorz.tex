@@ -1,59 +1,52 @@
 \subsection{Finite Horizon: decision variable, markov shock}
-Just some simple backward iteration. Let $\Theta$ be all the parameters of the model, and let $\theta_j$ be the values of those parameters which are relevant in period $j$.\footnote{So if a parameter is independent of age, then it is just in $\theta_j$ as is. If a parameter depends on age, then only the value relevant to age $j$ is in $\theta_j$.}
+The basic algorithm is simple backward iteration. Let $\Theta$ be the full set of model parameters, and let $\theta_j$ be the values of those parameters that are relevant in period $j$.\footnote{So if a parameter is independent of age, then it appears unchanged in $\theta_j$. If a parameter depends on age, then $\theta_j$ contains only the value relevant at age $j$.}
 \begin{algorithmic}
- \State Solve for final period, $N_j$: $V_{N_j}(a,z)=max_{d,a' \in D(a,z)} F(d,a',a,z)$
- \State ... and keep the argmax $g_{N_j}$.
+ \State Solve for final period, $N_j$: $V_{N_j}(a,z)=\max_{d,a' \in D(a,z)} \left\{ F(d,a',a,z) \right\}$
+ \State ... and keep the $\argmax$ $g_{N_j}$.
  \For $j$ count backward from $N_j-1$ to $1$
    \State Get $\theta_j$ from $\Theta$
-   \For All values $z$
-    \State Calculate $E[V_{j+1}(a',z')]$
-    \For All values of $(a,z)$
-     \State Calculate $V_j(a,z)=max_{d,a' \in D(a,z)} F(d,a',a,z)+\beta E[V_{j+1}(a',z')]$
-     \State ... and keep the $argmax$ $g_j(a,z)$.
+   \For All values of $z$
+    \State Calculate $E[V_{j+1}(a',z')|z]=\sum_{z'} V_{j+1}(a',z') \pi_z(z,z')$
+    \For All values of $a$
+     \State Calculate $V_j(a,z)=\max_{d,a' \in D(a,z)} \left\{ F(d,a',a,z)+\beta E[V_{j+1}(a',z')|z] \right\}$
+     \State ... and keep the $\argmax$ $g_j(a,z)$.
      \EndFor
    \EndFor
   \EndFor
    \\ \Return $[V_1,V_2,...,V_{N_j}]$, $[g_1,g_2,...,g_{N_j}]$
 \end{algorithmic}
 
-If you were writing custom code for a specific problem, you would likely try to take advantage of things like monotonicity, but because VFI Toolkit is trying to solve generic problems it just uses this simple robust approach.
+If you were writing custom code for a specific problem, you would likely try to exploit features such as monotonicity. However, because VFI Toolkit is designed to solve generic problems, it uses this simple and robust approach.
 
 \subsubsection{Finite Horizon: semi-exogenous state}
-We now add a semi-exogenous state. Semi-exogenous shocks are exogenous states for which the transition probabilities depend on a decision variable (see Life-Cycle Model 30 for an example). So $\pi_{semiz}(semiz'|semiz,d)$ gives the probability of next-period semi-exogenous state based on the current semi-exogenous state and on the decision variable.
+We now add a semi-exogenous state. Semi-exogenous shocks are exogenous states for which the transition probabilities depend on a decision variable (see Life-Cycle Model 30 for an example). Thus, $\pi_{semiz}(semiz'|semiz,d)$ gives the probability of the next-period semi-exogenous state as a function of the current semi-exogenous state and the decision variable.
 
-The difference the expectations are now more complex.
+The main difference is that the expectations term is now more complex.
 
 \begin{algorithmic}
- \State Solve for final period, $N_j$: $V_{N_j}(a,semiz,z)=max_{d,a' \in D(a,semiz,z)} F(d,a',a,semiz,z)$
- \State ... and keep the argmax $g_{N_j}$.
+ \State Solve for final period, $N_j$: $V_{N_j}(a,semiz,z)=\max_{d,a' \in D(a,semiz,z)} F(d,a',a,semiz,z)$
+ \State ... and keep the $\argmax$ $g_{N_j}$.
  \For $j$ count backward from $N_j-1$ to $1$
    \State Get $\theta_j$ from $\Theta$
-   \For All values $z$
-    \State Calculate $E[V_{j+1}(a',semiz',z')|d]$ \Comment Note conditional on d, because of semi-exog state
-    \For All values of $(a,semiz,z)$
-     \State Calculate $V_j(a,semiz,z)=max_{d,a' \in D(a,semiz,z)} F(d,a',a,semiz,z)+\beta E[V_{j+1}(a',semiz',z')|d]$
-     \State ... and keep the $argmax$ $g_j(a,semiz,z)$.
+   \For All values of $d$
+    \For All values of $(semiz,z)$
+     \State Calculate $E[V_{j+1}(a',semiz',z')|d,semiz,z]$
+     \Statex \hspace{\algorithmicindent} $=\sum_{semiz',z'} V_{j+1}(a',semiz',z') \pi_z(z,z') \pi_{semiz}(semiz,semiz'|d)$
+     \For All values of $a$
+      \State Calculate $V_j(a,semiz,z|d)$
+      \Statex \hspace{\algorithmicindent} $=\max_{a' \in D(a,semiz,z)} \left\{ F(d,a',a,semiz,z)+\beta E[V_{j+1}(a',semiz',z')|d,semiz,z] \right\}$
+      \State ... and keep the $\argmax$ $g_j(a,semiz,z|d)$.
+      \EndFor
      \EndFor
-   \EndFor
+    \EndFor
+    \State $V_j(a,semiz,z)=\max_{d} V_j(a,semiz,z|d)$
+    \State Let $d^*(a,semiz,z)=\argmax_d V_j(a,semiz,z|d)$.
+    \State Then $g_j(a,semiz,z)=g_j(a,semiz,z|d^*(a,semiz,z))$.
   \EndFor
    \\ \Return $[V_1,V_2,...,V_{N_j}]$, $[g_1,g_2,...,g_{N_j}]$
 \end{algorithmic}
 
-The $E[V_{j+1}(a',semiz',z')|d]$ term is doing a lot of work here. It adds a whole dimension to the expectations term. The way this is implemented in the codes is actually slightly different, namely there is a loop over $d$ and the problem is solved conditional on d, then once the loop is finished the maximum over d is taken. That is the lines 5-11 become
-\begin{algorithmic}
-  \For All values of $d$
-   \For All values $z$
-    \State Calculate $E[V_{j+1}(a',semiz',z')|d]$ \Comment Note conditional on d, because of semi-exog state
-    \For All values of $(a,semiz,z)$
-     \State Calculate $V_j(a,semiz,z|d)=max_{a' \in D(a,semiz,z)} F(d,a',a,semiz,z)+\beta E[V_{j+1}(a',semiz',z')|d]$
-     \State ... and keep the $argmax$ $g_j(a,semiz,z|d)$.
-     \EndFor
-   \EndFor
-  \EndFor
-  \State $V_j(a,semiz,z)=\max_{d} V_j(a,semiz,z|d)$
-  \State and used the $argmax$ $d$ from this, denoted $d*$ to get $g_j(a,z)=g_j(a,z|d*)$.
-\end{algorithmic}
-where implicitly for values of $d$ that are not in $D(a,semiz,z)$, the return is $-\infty$ and so these will never be chosen.
+The $E[V_{j+1}(a',semiz',z')|d,semiz,z]$ term is doing a lot of work here. It adds an extra dimension to the expectations term, because the expectation must now be computed separately for each value of $d$ and for each current pair $(semiz,z)$. For this reason, it is natural to solve the problem conditional on $d$ first, and then maximize over $d$ afterward. Here, values of $d$ that are not in $D(a,semiz,z)$ are implicitly assigned a return of $-\infty$, so they will never be chosen.
 
 
 \subsubsection{Finite Horizon: experienceasset}
