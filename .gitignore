@@ -1,0 +1,8 @@
+PseudoCodes/*.aux
+PseudoCodes/*.bbl
+PseudoCodes/*.blg
+PseudoCodes/*.fdb_latexmk
+PseudoCodes/*.fls
+PseudoCodes/*.log
+PseudoCodes/*.out
+PseudoCodes/*.toc
