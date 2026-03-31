@@ -1,8 +1,8 @@
-PseudoCodes/*.aux
-PseudoCodes/*.bbl
-PseudoCodes/*.blg
-PseudoCodes/*.fdb_latexmk
-PseudoCodes/*.fls
-PseudoCodes/*.log
-PseudoCodes/*.out
-PseudoCodes/*.toc
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
