@@ -53,7 +53,7 @@ Hence each column of $P_j$ contains exactly $N_z$ non-zeros, one for each possib
 VFI Toolkit by default will actually use the Tan improvement when iterating on the agent distribution and we turn to that now. We note that $P$ here takes us directly from $(a,z)$ to $(a',z')$.
 
 \subsubsection{Tan Improvement Iterating the Agent Distribution}
-The Tan improvement is the observation that, instead of using $P_j$ directly, we can apply $g_j$ and $\pi_{z,j}$ one at a time. This gives exactly the same distribution update, but in a way that is faster and less memory demanding.
+The Tan improvement is the observation that instead of using $P_j$ directly, we can use $g_j$ and $\pi_{z,j}$ one at a time. This bit of genius means we do exactly the same, but in a way that is faster and less memory demanding (people spent 30+ years using $P$ before Tan saw that you could split it in two!).
 
 We just iterate $j$ times,
 \begin{algorithmic}
