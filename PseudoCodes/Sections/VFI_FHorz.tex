@@ -1,7 +1,7 @@
 \subsection{Finite Horizon: decision variable, markov shock}
 The basic algorithm is simple backward iteration. Let $\Theta$ be the full set of model parameters, and let $\theta_j$ be the values of those parameters that are relevant in period $j$.\footnote{So if a parameter is independent of age, then it appears unchanged in $\theta_j$. If a parameter depends on age, then $\theta_j$ contains only the value relevant at age $j$.}
 \begin{algorithmic}
- \State Solve for final period, $N_j$: $V_{N_j}(a,z)=\max_{d,a' \in D(a,z)} \left\{ F(d,a',a,z) \right\}$
+ \State Solve for final period, $N_j$: $V_{N_j}(a,z)=\max_{d,a' \in D(a,z)} F(d,a',a,z) $
  \State ... and keep the $\argmax$ $g_{N_j}$.
  \For $j$ count backward from $N_j-1$ to $1$
    \State Get $\theta_j$ from $\Theta$
